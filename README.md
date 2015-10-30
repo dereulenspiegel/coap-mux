@@ -1,7 +1,7 @@
 # coap-mux [![Build Status](https://travis-ci.org/dereulenspiegel/coap-mux.svg)](https://travis-ci.org/dereulenspiegel/coap-mux)
 
 This package provides basic support for routing based on path and method for
-CoAP server.
+CoAP server. This library is heavily inspired by [mux](https://github.com/gorilla/mux).
 
 ## Installation
 
