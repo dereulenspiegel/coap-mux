@@ -12,7 +12,7 @@ var (
 	msgVars = make(map[*coap.Message]map[string]string)
 )
 
-func SetVar(msg *coap.Message, name, data string) {
+func setVar(msg *coap.Message, name, data string) {
 	mutex.Lock()
 	r, exists := msgVars[msg]
 	if !exists {
@@ -22,7 +22,7 @@ func SetVar(msg *coap.Message, name, data string) {
 	mutex.Unlock()
 }
 
-func SetVars(msg *coap.Message, vars map[string]string) {
+func setVars(msg *coap.Message, vars map[string]string) {
 	mutex.Lock()
 	msgVars[msg] = vars
 	mutex.Unlock()
@@ -40,7 +40,7 @@ func Var(msg *coap.Message, name string) string {
 	return value
 }
 
-func ClearVars(msg *coap.Message) {
+func clearVars(msg *coap.Message) {
 	mutex.Lock()
 	delete(msgVars, msg)
 	mutex.Unlock()
@@ -83,9 +83,9 @@ func (r *Router) ServeCOAP(l *net.UDPConn, a *net.UDPAddr, m *coap.Message) *coa
 	var returnMessage *coap.Message
 	if r.Match(m, a, match) {
 		// TODO set vars
-		SetVars(m, match.Vars)
+		setVars(m, match.Vars)
 		returnMessage = match.Handler.ServeCOAP(l, a, m)
-		ClearVars(m)
+		clearVars(m)
 	} else {
 		returnMessage = r.NotFoundHandler.ServeCOAP(l, a, m)
 	}
