@@ -31,3 +31,16 @@ func TestPathMatcherMultiple(t *testing.T) {
 	assert.True(pathRoute.Match(testMsg, nil, match))
 	assert.Equal(2, len(match.Vars))
 }
+
+func TestMethodMatcher(t *testing.T) {
+	assert := assert.New(t)
+
+	methodRoute := &Route{}
+	methodRoute.Methods(coap.GET)
+
+	testMsg := &coap.Message{}
+	testMsg.Code = coap.GET
+
+	match := &RouteMatch{}
+	assert.True(methodRoute.Match(testMsg, nil, match))
+}
