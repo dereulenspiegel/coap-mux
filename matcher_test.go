@@ -44,3 +44,16 @@ func TestMethodMatcher(t *testing.T) {
 	match := &RouteMatch{}
 	assert.True(methodRoute.Match(testMsg, nil, match))
 }
+
+func TestCOAPTypeMatcher(t *testing.T) {
+	assert := assert.New(t)
+
+	typeRoute := &Route{}
+	typeRoute.COAPType(coap.Confirmable)
+
+	testMsg := &coap.Message{}
+	testMsg.Type = coap.Confirmable
+
+	match := &RouteMatch{}
+	assert.True(typeRoute.Match(testMsg, nil, match))
+}

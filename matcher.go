@@ -20,6 +20,17 @@ func (m methodMatcher) Match(msg *coap.Message, addr *net.UDPAddr) bool {
 	return false
 }
 
+type coaptypeMatcher []coap.COAPType
+
+func (m coaptypeMatcher) Match(msg *coap.Message, addr *net.UDPAddr) bool {
+	for _, v := range m {
+		if v == msg.Type {
+			return true
+		}
+	}
+	return false
+}
+
 // addRegexpMatcher adds a host or path matcher and builder to a route.
 func (r *Route) addRegexpMatcher(tpl string) error {
 	if len(tpl) == 0 || tpl[0] != '/' {

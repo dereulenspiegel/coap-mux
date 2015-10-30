@@ -76,3 +76,8 @@ func (r *Route) Path(tpl string) *Route {
 	r.addRegexpMatcher(tpl)
 	return r
 }
+
+func (r *Route) COAPType(coapTypes ...coap.COAPType) *Route {
+	r.addMatcher(coaptypeMatcher(coapTypes))
+	return r
+}
