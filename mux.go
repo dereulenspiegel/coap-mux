@@ -90,7 +90,7 @@ func (r *Router) Path(tpl string) *Route {
 
 // This method implements the interface for coap.Handler
 func (r *Router) ServeCOAP(l *net.UDPConn, a *net.UDPAddr, m *coap.Message) *coap.Message {
-	var match *RouteMatch
+	match := &RouteMatch{}
 	var returnMessage *coap.Message
 	if r.Match(m, a, match) {
 		// TODO set vars
